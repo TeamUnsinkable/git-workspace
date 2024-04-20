@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  
+  pololu-control-node:
+    image: amra-development:dev
+    build: .
+    restart: no
+    # Allow ROS network traffic through
+    network_mode: "host"
+    # Set the ROS Domain ID
+    environment:
+      - ROS_DOMAIN_ID=69
+    # Mount all USB devices
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    # Allow privilage for TTY access
+    privileged: true 
+    # Launch PololuMotorControl Node
+    command: ros2 run pololu_motor_control controller_node --ros-args -p port:=/dev/ttyACM0
+
+  image-transport-node:
+    image: amra-development:dev
+    build: .
+    restart: no
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=69
+    devices:
+      - "/dev/ttyUSB-DeepWater:/dev/ttyUSB-DeepWater"
+      - "/dev/video*:/dev/video*"
+    privileged: true
+    command: ros2 run image_tools cam2image --ros-argss -p device_id:=1

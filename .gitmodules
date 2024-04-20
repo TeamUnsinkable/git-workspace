@@ -1,0 +1,12 @@
+[submodule "src/amra_utils_py"]
+	path = src/amra_utils_py
+	url = git@github.com:TeamUnsinkable/amra_utils_py.git
+[submodule "src/pololu_motor_control"]
+	path = src/pololu_motor_control
+	url = git@github.com:TeamUnsinkable/pololu_motor_control.git
+[submodule "src/amra_utils_msgs"]
+	path = src/amra_utils_msgs
+	url = git@github.com:TeamUnsinkable/amra_utils_msgs.git
+[submodule "scripts"]
+	path = scripts
+	url = git@github.com:TeamUnsinkable/script-helpers.git
