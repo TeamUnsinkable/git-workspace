@@ -1,3 +1,4 @@
+[![Docker Image CI](https://github.com/TeamUnsinkable/git-workspace/actions/workflows/docker-image.yml/badge.svg)](https://github.com/TeamUnsinkable/git-workspace/actions/workflows/docker-image.yml)
 # AMRA RoboSub Workspace
 This will be the default workspace for AMRA's development environement.
 The purposes of this repository are numerous
