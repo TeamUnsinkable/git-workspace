@@ -31,6 +31,9 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Get Submodules
+      uses: snickerbockers/submodules-init@v4
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
