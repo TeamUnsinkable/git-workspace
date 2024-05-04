@@ -21,7 +21,7 @@ COPY ./scripts ./scripts
 RUN apt install python3-pip -y
 
 # Install necessary dependencies with pip
-RUN ls scripts/
+RUN ls
 RUN cd scripts/ && pip3 install -r ./python-can-requirements.txt
 
 # Configure CAN Envirnoment
