@@ -45,8 +45,8 @@ jobs:
         file: Dockerfile
         push: true
         tags: |
-          ${{ env.IMAGE_NAME }}:latest
-          ${{ env.IMAGE_NAME }}:dev
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
         labels: ${{ steps.meta.outputs.labels }}
       
     - name: Build and push CAN Image
@@ -56,6 +56,6 @@ jobs:
         file: Dockerfile-CAN
         push: true
         tags: |
-          ${{ env.IMAGE_NAME }}:can
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:can
         labels: ${{ steps.meta.outputs.labels }}
     
