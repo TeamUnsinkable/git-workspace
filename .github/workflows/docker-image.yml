@@ -38,10 +38,24 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         
-    - name: Build and push Docker image
+    - name: Build and push Base  image
       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
       with:
         context: .
+        file: Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: |
+          ${{ env.IMAGE_NAME }}:latest
+          ${{ env.IMAGE_NAME }}:dev
+        lame: Build and push Docker image
+      
+    - name: Build and push CAN Image
+      uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+      with:
+        context: .
+        file: Dockerfile-CAN
+        push: true
+        tags: |
+          ${{ env.IMAGE_NAME }}:can
+        labels: ${{ steps.meta.outputs.labels }}bels: ${{ steps.meta.outputs.labels }}
+    

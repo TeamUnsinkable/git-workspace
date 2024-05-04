@@ -1,0 +1,44 @@
+FROM ros:humble
+
+SHELL ["/bin/bash", "-c"]
+WORKDIR /app
+
+# Update
+RUN apt-get update -y && apt-get upgrade -y
+
+# Install ROS Packages
+RUN apt-get install ros-humble-image-tools -y
+RUN apt-get install wget unzip -y
+
+# Configure ROS Environement
+ENV ROS_DOMAIN_ID 69
+
+# Copy Files
+COPY ./src ./src
+COPY ./scripts ./scripts
+
+# Install pip3
+RUN apt install python3-pip -y
+
+# Install necessary dependencies with pip
+RUN pip3 install -r ./scripts/python-can-requirements.txt
+
+# Configure CAN Envirnoment
+RUN cd scripts/ && bash ./cyphal_env_config.sh
+
+# Install ROSDep requirements
+RUN . /opt/ros/humble/setup.sh && \
+	rosdep install --from-paths src
+
+# Build Packages
+RUN . /opt/ros/humble/setup.sh && \
+	colcon build --packages-select\
+	pololu_motor_control \
+	amra_utils_msgs \
+	amra_utils_py
+
+# COPY scripts/udev-rules /etc/udev/rules.d/
+COPY ./ros_entrypoint.sh /
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]
+
