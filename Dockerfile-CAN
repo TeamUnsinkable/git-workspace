@@ -21,10 +21,12 @@ COPY ./scripts ./scripts
 RUN apt install python3-pip -y
 
 # Install necessary dependencies with pip
+RUN ls scripts/
 RUN cd scripts/ && pip3 install -r ./python-can-requirements.txt
 
 # Configure CAN Envirnoment
 RUN cd scripts/ && bash ./cyphal_env_config.sh
+RUN echo "export PATH=~/.local/bin/:$PATH" >> ~/.bashrc
 
 # Install ROSDep requirements
 RUN . /opt/ros/humble/setup.sh && \
