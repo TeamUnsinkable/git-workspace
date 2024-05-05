@@ -31,7 +31,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-          submodules: 'true'  # Ensure submodules are checked out
+          submodules: 'recursive'  # Ensure submodules are checked out
           ssh-key: ${{ secrets.FA_PUBLIC_KEY }} # For submodule fetching
 
     - name: Log in to the Container registry
