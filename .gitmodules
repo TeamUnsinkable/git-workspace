@@ -10,9 +10,6 @@
 [submodule "scripts"]
 	path = scripts
 	url = git@github.com:TeamUnsinkable/script-helpers.git
-[submodule "src/cyphal_motor_msgs"]
-	path = src/cyphal_motor_msgs
-	url = git@github.com:TeamUnsinkable/cyphal_motor_py.git
 [submodule "src/cyphal_motor_py"]
 	path = src/cyphal_motor_py
 	url = git@github.com:TeamUnsinkable/cyphal_motor_py.git
