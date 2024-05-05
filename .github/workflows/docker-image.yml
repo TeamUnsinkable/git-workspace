@@ -26,7 +26,7 @@ jobs:
       uses: actions/checkout@v4
       with:
           submodules: 'true'  # Ensure submodules are checked out
-          token: ${{ secrets.GH_TOKEN }} # For submodule fetching
+          token: ${{ secrets.GITHUB_TOKEN }} # For submodule fetching
 
   
     - name: Log in to the Container registry
