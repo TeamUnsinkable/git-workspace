@@ -21,14 +21,19 @@ jobs:
       packages: write
     
     steps:
-    
+    - name: Setup SSH Keys
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.FA_PRIVATE_KEY }}" >> ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/id_rsa
+      
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
           submodules: 'true'  # Ensure submodules are checked out
-          token: ${{ secrets.GITHUB_TOKEN }} # For submodule fetching
+          ssh-key: ${{ secrets.FA_PUBLIC_KEY }} # For submodule fetching
 
-  
     - name: Log in to the Container registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
       with:
