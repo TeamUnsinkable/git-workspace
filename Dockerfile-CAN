@@ -9,6 +9,7 @@ RUN apt-get update -y && apt-get upgrade -y
 # Install ROS Packages
 RUN apt-get install ros-humble-image-tools -y
 RUN apt-get install wget unzip -y
+RUN apt-get install can-utils -y
 
 # Configure ROS Environement
 ENV ROS_DOMAIN_ID 69
