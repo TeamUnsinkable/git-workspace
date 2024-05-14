@@ -35,7 +35,6 @@ PidObject::PidObject() : rclcpp::Node("pid_controller"),
         this->get_parameter("Kp", Kp_);
         this->get_parameter("Ki", Ki_);
         this->get_parameter("Kd", Kd_);
-        this->get_parameter("upper_limit", upper_limit_);
         this->get_parameter("topic_from_controller", topic_from_controller_);
         this->get_parameter("topic_from_plant", topic_from_plant_);
         this->get_parameter("setpoint_topic", setpoint_topic_);
