@@ -1,0 +1,12 @@
+float64 time_since_last
+float64 vx
+float64 vy
+float64 vz
+float64 fom
+float64[] covariance
+float64 altitude
+waterlinked_a50_msgs/DVLBeam[] transducers
+bool velocity_valid
+int8 status
+float64 time_of_validity
+float64 time_of_transmission
