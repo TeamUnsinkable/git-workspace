@@ -11,8 +11,8 @@ from waterlinked_a50_msgs.srv import DeadReckon, GyroCalibration, GetConfig
 
 class DVLPublisher(Node):
     def __init__(self) -> None:
-        self._load_ros_params()
         super().__init__("WaterlinkedA50")
+        self._load_ros_params()
         self._logger.info("Connecting to DVL at {}:{}...".format(self.ip, self.port))
         try:
             self.dvl = DVL_Reader(self.ip, self.port)
@@ -130,10 +130,10 @@ class DVLPublisher(Node):
         self.lock.release()
         response.success = resp['success']
         response.error_message = resp['error_message']
+        
         return response
 
     def cb_dead_reckon(self, request: SrvTypeRequest, response: SrvTypeResponse):
-        self.lock.acquire(True)
         self._logger.info("Recieved reset deadreckon request. Locking thread...")
         self.lock.acquire(True)
         self._logger.info("Locked!")
@@ -143,4 +143,12 @@ class DVLPublisher(Node):
         response.error_message = resp['error_message']
         return response
 
+
+def main():
+    rclpy.init()
+    node = DVLPublisher()
+    rclpy.spin(node)
+    node.dvl.terminate()
     
+if __name__ == "__main__":
+    main()

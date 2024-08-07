@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "dvl = waterlinked_a50_py.node:main"
         ],
     },
 )
