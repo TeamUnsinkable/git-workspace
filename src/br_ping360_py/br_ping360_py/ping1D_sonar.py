@@ -12,12 +12,12 @@ def SonarReader():
         pass
 
     def scan(self, angle) -> list:
-        if self.sonar,get_distance 
-        return = self.sonar.get_distance()
-    
+        with self.sonar.get_distance as val:
+           pass    
     def errCheck(self):
-        if self.sonar.initialize() == False
-            rcply
+        if self.sonar.initialize() == False:
+            pass
+            
 
     ############################
     ## Parameter Calculations ##
