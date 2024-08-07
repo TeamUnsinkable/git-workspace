@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from rclpy import logging
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -6,7 +7,8 @@ from ament_index_python.packages import get_package_share_directory
 import os
 
 def generate_launch_description():
-    print("Starting SubbyBoi Launch...")
+    logger = logging.get_logger()
+    logger.info("Starting SubbyBoi Launch...")
     ld = LaunchDescription()
     ld.add_entity(generate_sensor_nodes())
     ld.add_entity(generate_motor_control_nodes())
@@ -62,7 +64,7 @@ def generate_motor_control_nodes() -> LaunchDescription:
                 {"deadman_timerout":    0.35}
             ],
             remappings=[
-                {"setpoint": f"/output/motor{motor_id+1}"}
+                ("setpoint", f"/output/motor{motor_id+1}")
             ]
         )
         motors.append(motor)
@@ -81,22 +83,22 @@ def generate_sensor_nodes() -> LaunchDescription:
     )
 
     dvl = Node(
-        package= "waterlined_a50_py",
+        package= "waterlinked_a50_py",
         executable= "dvl",
         namespace= "/sensor",
         name = "WaterlinkedDVLNode",
         parameters=[
-            {"ip_address": "10.10.69.XXX"},
+            {"ip_address": "10.10.69.10"},
             {"port": 12345},
             {"rate": 10},
-            {"qu_min_data": True},
-            {"qu_dead_reckon": True},
-            {"qu_full_dump", False}
+            {"qu_min_data": "True"},
+            {"qu_dead_reckon": "True"},
+            {"qu_full_dump", "False"}
         ]
     )
 
     sonar = Node(
-        package="br_ping360+py",
+        package="br_ping360_py",
         executable="ping360",
         namespace="/sensor",
         name="Ping360Node",
