@@ -12,6 +12,10 @@ class DVL_Reader():
     def __init__(self, ip, port) -> None:
         self.ip = ip
         self.port = port
+    
+        con_status = self.init_stream()
+        if con_status != True:
+            raise ConnectionError
 
     def init_stream(self):
         # Define as a TCP, INET, connection of type STREAM for continous flow of data 
@@ -27,8 +31,8 @@ class DVL_Reader():
             self.get_data()
         except AttributeError as e:
             return("Failed to connect to DVL")
-
         return True
+    
 
     def calibrate_gyro(self) -> dict:
         command = {'command': 'calibrate_gyro'}
