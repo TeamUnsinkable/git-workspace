@@ -3,21 +3,17 @@ from brping import PingDevice, Ping1D, PingMessage
 import numpy as np
 
 def SonarReader():
-    def __init__(self, addr="/dev/ttyUSB0", baud=115200) -> bool:
+    def __init__(self, port="/dev/ttyUSB1", baud=115200) -> bool:
         self.sonar = Ping1D()
-        self.sonar.connect_serial(addr, baud)
+        self.sonar.connect_serial(port, baud)
         return self.sonar.initialize()
     
     def configure_params(self):
         pass
 
-    def scan(self, angle) -> list:
-        with self.sonar.get_distance as val:
-           pass    
-    def errCheck(self):
-        if self.sonar.initialize() == False:
-            pass
-            
+    def scan(self) -> tuple:
+        return self.sonar.get_distance_simple()
+    
 
     ############################
     ## Parameter Calculations ##
