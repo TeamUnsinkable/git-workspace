@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+
+  # VectorNav Node
+  vectornav-node:
+    image: amra-development:dev
+    build:
+      context: ..  # Look for the Dockerfile in the parent directory
+    restart: no
+    # Allow ROS network traffic through
+    network_mode: "host"
+    # Set the ROS Domain ID
+    environment:
+      - ROS_DOMAIN_ID=69
+    # Mount all USB devices
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    # Allow privilage for TTY access
+    privileged: true
+    # Launch VectorNav Node
+    command: ros2 run vectornav vectornav_node --ros-args -p param:=/sensor/vectornav 
+
+  # Waterlinked DVL Node
+  waterlinked-dvl-node:
+    image: amra-development:dev
+    build:
+      context: ..  
+    restart: no
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=69
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    privileged: true
+    command: ros2 run waterlinked_a50_py dvl --ros-args -p ip_address:=10.10.69.10 -p port:=12345 -p rate:=10
+
+  # Ping360 Sonar Node
+  ping360-node:
+    image: amra-development:dev
+    build:
+      context: ..  
+    restart: no
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=69
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    privileged: true
+    command: ros2 run br_ping360_py ping360_node --ros-args -p ip_address:=10.10.69.102 -p port:=12345
+
+  # Yaw PID Control Node
+  yaw-pid-node:
+    image: amra-development:dev
+    build:
+      context: ..  
+    restart: no
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=69
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    privileged: true
+    command: ros2 run pid_control controller --ros-args --remap state:=/sensors/vectornav/translated/z
+
+  # Motor Control Node
+  motor-control-node:
+    image: amra-development:dev
+    build:
+      context: .. 
+    restart: no
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=69
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    privileged: true
+    command: ros2 run cyphal_motor_py motor --ros-args -p motor_id:=120 -p status_id:=1200 -p rat_setpoint_id:=1100
+
